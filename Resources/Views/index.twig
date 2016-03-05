@@ -1,0 +1,20 @@
+{% extends "theme/main.twig" %}
+
+{% block title %}Longhorn MVC{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Welcome</h1>
+            {% if baggage %}
+                <p>{{ baggage }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
