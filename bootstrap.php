@@ -28,10 +28,8 @@ require_once(FRAMEWORK.'/Errors/handlers.php');
  */
 require_once FRAMEWORK.'/helpers.php';
 
-
+//Relative pathing helps get us back home.
 require_once FRAMEWORK.'/Routing/RelativePathing.php';
-//dd(ASSET_PATH);
-//dd(str_ireplace("//","/",$relativePrefix.ASSET_PATH));
 
 /*
  * Composer Autoloader

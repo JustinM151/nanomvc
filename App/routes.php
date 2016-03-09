@@ -21,8 +21,9 @@ $router->get('/closure/{var1}/{var2}',function($x,$y){
     echo $x." AND ".$y;
 });
 
-$router->get('/usesClosure',['uses'=>function() {
-    echo "Used Closure!";
+//Uses closure
+$router->get('/phpinfo',['uses'=>function() {
+    phpinfo();
 }]);
 
 $router->get('/uses',['uses'=>'PageController@index', 'middleware'=>'Authenticate']);

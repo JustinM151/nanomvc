@@ -8,7 +8,7 @@
 
 namespace App\Middleware\Auth;
 use App\Middleware\Middleware;
-use Framework\Routing\Route;
+use Framework\Routing\Redirect;
 use Framework\Authenticate\Authenticate;
 
 class Auth implements Middleware
@@ -36,7 +36,7 @@ class Auth implements Middleware
 
         if(!$auth)
         {
-            Route::redirect("/auth/login");
+            Redirect::route("/auth/login")->with('The page you requested requires you to be logged in.');
         }
         else {
             return true;
