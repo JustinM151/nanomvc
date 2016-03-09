@@ -136,6 +136,22 @@ class Session
     }
 
     /**
+     * drop
+     * Drops a value from the session
+     * @param $key
+     * @return bool
+     */
+    public function drop($key)
+    {
+        if(isset($this->{$key})) {
+            unset($this->{$key});
+            unset($_SESSION[$key]);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * startIfNotReady
      * Checks if the session is ready, if it isn't it tries to start it.
      * @return bool
