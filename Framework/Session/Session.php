@@ -161,6 +161,7 @@ class Session
         }
         else
         {
+            $this->collectSessionData();
             return true; //Session should be ready.
         }
     }
