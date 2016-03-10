@@ -13,9 +13,8 @@ class Session
 {
     /**
      * Session constructor.
-     * @param null $autostart - pass true to automatically start your session
      */
-    function __construct($autostart = null)
+    function __construct()
     {
         //One day this may not auto-stasrt... but for now it does.
         $this->startIfNotReady();

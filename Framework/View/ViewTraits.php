@@ -29,7 +29,7 @@ trait ViewTraits
             {
                 $this->with($k,$v);
             }
-            unset($s->nanomvc_redirect_baggage);
+            $s->drop('nanomvc_redirect_baggage');
         }
     }
 

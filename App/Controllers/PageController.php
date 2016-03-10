@@ -32,7 +32,7 @@ class PageController
     public function index()
     {
         //NEW VIEW STYLE
-        return View::make('index')->render();
+        return View::make('index');
         //return $view->render();
 
         //OLD VIEW STYLE
@@ -42,6 +42,6 @@ class PageController
 
     public function redirects()
     {
-        Redirect::route('/')->with('baggage','This is my baggage!')->go();
+        return Redirect::route('/')->with('baggage','This is my baggage!');
     }
 }

@@ -16,7 +16,7 @@ class Twig implements ViewInterface
     use ViewTraits;
     /**
      * Twig constructor.
-     * Get Baggage on construct.
+     * Get Baggage from redirects
      */
     public function __construct()
     {

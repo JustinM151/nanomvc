@@ -140,7 +140,13 @@ class Router
                             } else {
                                 $output = $controller->$method();
                             }
-                            echo $output;
+                            if($output instanceof Redirect) {
+                                $output->go();
+                                exit;
+                            } elseif($output instanceof \Framework\View\ViewInterface) {
+                                die($output->render());
+                            }
+                            //echo $output;
                             exit; //Hard stop, just in case the method doesn't exit.
                         } else {
                             throw new RouteException("Missing Controller Method", 102);

@@ -39,8 +39,8 @@ class Redirect
      */
     public static function route($uri)
     {
-        $route = new self('route',$uri);
-        return $route;
+        $redirect = new self('route',$uri);
+        return $redirect;
     }
 
     /**
@@ -51,8 +51,8 @@ class Redirect
      */
     public static function url($url)
     {
-        $route = new self('url',$url);
-        return $route;
+        $redirect = new self('url',$url);
+        return $redirect;
     }
 
     /**
@@ -64,9 +64,9 @@ class Redirect
     public function with($key,$val)
     {
         $s = new Session();
-        $baggage = $s->get('redirect_baggage');
+        $baggage = $s->get('nanomvc_redirect_baggage');
         $baggage[$key] = $val;
-        $s->set('redirect_baggage',$baggage);
+        $s->set('nanomvc_redirect_baggage',$baggage);
         return $this;
     }
 
@@ -76,7 +76,8 @@ class Redirect
      */
     public function go()
     {
-        header('location: '.$this->location);
+        $location = str_replace('//','/',$this->location);
+        header('location: '.$location);
         exit;
     }
 
