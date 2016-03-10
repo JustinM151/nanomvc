@@ -11,8 +11,7 @@
  */
 require_once 'config.php';
 
-if(DEBUG)
-{
+if(DEBUG) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(-1);
@@ -38,4 +37,4 @@ require_once BASE_DIR . '/Vendor/autoload.php';
 
 require_once FRAMEWORK . '/ClassLoader.php';
 
-require_once(APP_DIR . '/routes.php');
+require_once APP_DIR . '/routes.php';
