@@ -136,10 +136,17 @@ class Router
                             if(is_array($vars))
                             {
                                 //call the controllers method passing in the route variables as arguments
-                                call_user_func_array(array($controller, $method), $vars);
+                                $output = call_user_func_array(array($controller, $method), $vars);
                             } else {
-                                $controller->$method();
+                                $output = $controller->$method();
                             }
+                            if($output instanceof Redirect) {
+                                $output->go();
+                                exit;
+                            } elseif($output instanceof \Framework\View\ViewInterface) {
+                                die($output->render());
+                            }
+                            //echo $output;
                             exit; //Hard stop, just in case the method doesn't exit.
                         } else {
                             throw new RouteException("Missing Controller Method", 102);

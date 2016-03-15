@@ -31,12 +31,17 @@ class PageController
 
     public function index()
     {
-        $v = new View();
-        $v->make('index')->render();
+        //NEW VIEW STYLE
+        return View::make('index');
+        //return $view->render();
+
+        //OLD VIEW STYLE
+        //$v = new View();
+        //$v->make('index')->render();
     }
 
     public function redirects()
     {
-        Redirect::route('/')->with('baggage','This is my baggage!')->go();
+        return Redirect::route('/')->with('baggage','This is my baggage!');
     }
 }
