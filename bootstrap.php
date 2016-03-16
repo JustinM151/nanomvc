@@ -31,9 +31,15 @@ require_once FRAMEWORK.'/helpers.php';
 require_once FRAMEWORK.'/Routing/RelativePathing.php';
 
 /*
+ * App Level Settings
+ */
+require_once APP_DIR . '/settings.php';
+
+
+/*
  * Composer Autoloader
  */
-require_once BASE_DIR . '/Vendor/autoload.php';
+require_once BASE_DIR . '/vendor/autoload.php';
 
 require_once FRAMEWORK . '/ClassLoader.php';
 

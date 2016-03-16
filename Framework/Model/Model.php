@@ -15,6 +15,9 @@ class Model extends QueryBuilder
     protected $table = "";
     protected $primaryKey = "id";
     protected $returnedID = false;
+    protected $parent = array();
+    protected $child = array();
+
 
     protected $fillable = array(); //fields that can be filled by a user submitted form
     protected $restricted = array(); //fields that can't be sent to fill a form (password etc)
@@ -83,4 +86,41 @@ class Model extends QueryBuilder
             return $this;
         }
     }
+
+
+    protected function belongsTo($modelName, $parentCol, $localCol = "id")
+    {
+        $model = "\\App\\Models\\".$modelName;
+        if(class_exists($model)) {
+            $this->parent[$modelName] = ['parentColumn'=>$parentCol, 'localColumn'=>$localCol, 'class'=>$model];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected function owns($modelName, $childCol, $localCol = "id")
+    {
+        $model = "\\App\\Models\\".$modelName;
+        if(class_exists($model)) {
+            $this->child[$modelName] = ['childColumn'=>$childCol, 'localColumn'=>$localCol, 'class'=>$model];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function Parent($modelName)
+    {
+        if(is_array($this->parent[$modelName]))
+        {
+            $parentData = $this->parent[$modelName];
+            $parentObject = new $parentData['class'];
+            /** @var Model $parentObject */
+            //dd($parentObject);
+            $parents = $parentObject->where($parentData['parentColumn'],$this->{$parentData['localColumn']});
+            return $parents;
+        }
+    }
+
 }

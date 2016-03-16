@@ -9,15 +9,15 @@
 namespace App\Models;
 use Framework\Model\Model;
 
-class User extends Model
+class Group extends Model
 {
-    protected $table = "users";
-    protected $fields = ['id','username','password','first_name','last_name','group_id'];
+    protected $table = "groups";
+    protected $fields = ['id','name'];
 
     public function __construct($fields='n/a')
     {
         parent::__construct($fields);
-        $this->belongsTo('Group','id','group_id');
+        $this->owns('User','group_id');
     }
 
 }

@@ -11,22 +11,22 @@ use Framework\View\View;
 use Framework\Session\Session;
 use Framework\Routing\Redirect;
 
+use App\Models\User;
+
 class PageController
 {
 
     public function test()
     {
-        $s = new Session();
-        $s->start();
-        $s->set("Name","John Doe");
-        $s->set("Age",89);
-        $s->safeSet("Age",23);
-
-        echo $s->Name;
-        echo "<br />";
-        echo $s->Age;
-        echo "<br />";
-        dd($s);
+        $usr = new User();
+        $users = $usr->where('id',1)->get();
+        //dd($users);
+        foreach($users as $u)
+        {
+            /** @var User $u */
+            $parents[$u->id] = $u->Parent('Group')->get();
+        }
+        dd($parents);
     }
 
     public function index()

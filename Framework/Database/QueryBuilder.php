@@ -160,11 +160,12 @@ class QueryBuilder
         $wQry = "";
         if(!empty($this->where))
         {
-
+            $db = new DB;
             foreach($this->where as $condition)
             {
-                $wQry .= $condition['chain'].' '.'`'.$condition['column'].'` '.$condition['operator'].' \''.$condition['value'].'\''.' ';
+                $wQry .= $condition['chain'].' '.'`'.$db->real_escape_string($condition['column']).'` '.$condition['operator'].' \''.$db->real_escape_string($condition['value']).'\''.' ';
             }
+            $db->close();
         }
         return $wQry;
     }
