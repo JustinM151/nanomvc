@@ -88,8 +88,12 @@ class Model extends QueryBuilder
     }
 
 
-    protected function belongsTo($modelName, $parentCol, $localCol = "id")
+    protected function belongsTo($modelName,$localCol = '_nanoXYZ_',$parentCol= "id")
     {
+        if($localCol=='_nanoXYZ_') {
+            $localCol = strtolower($modelName)."_id";
+        }
+
         $model = "\\App\\Models\\".$modelName;
         if(class_exists($model)) {
             $this->parent[$modelName] = ['parentColumn'=>$parentCol, 'localColumn'=>$localCol, 'class'=>$model];
@@ -99,8 +103,13 @@ class Model extends QueryBuilder
         }
     }
 
-    protected function owns($modelName, $childCol, $localCol = "id")
+    protected function owns($modelName, $childCol = '_nanoXYZ_', $localCol = "id")
     {
+        if($childCol=='_nanoXYZ_') {
+            $reflection = new \ReflectionClass($this);
+            $childCol = strtolower($reflection->getShortName())."_id";
+        }
+
         $model = "\\App\\Models\\".$modelName;
         if(class_exists($model)) {
             $this->child[$modelName] = ['childColumn'=>$childCol, 'localColumn'=>$localCol, 'class'=>$model];
@@ -110,7 +119,7 @@ class Model extends QueryBuilder
         }
     }
 
-    public function Parent($modelName)
+    public function parents($modelName)
     {
         if(is_array($this->parent[$modelName]))
         {
@@ -120,7 +129,26 @@ class Model extends QueryBuilder
             //dd($parentObject);
             $parents = $parentObject->where($parentData['parentColumn'],$this->{$parentData['localColumn']});
             return $parents;
+        } else {
+            return false;
         }
     }
+
+    public function children($modelName)
+    {
+        if(is_array($this->child[$modelName]))
+        {
+            $childData = $this->child[$modelName];
+            $childObject = new $childData['class'];
+            /** @var Model $childObject */
+            //dd($parentObject);
+            $children = $childObject->where($childData['childColumn'],$this->{$childData['localColumn']});
+            //dd($children);
+            return $children;
+        } else {
+            return false;
+        }
+    }
+
 
 }

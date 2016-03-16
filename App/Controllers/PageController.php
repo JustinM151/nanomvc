@@ -7,6 +7,7 @@
  */
 namespace App\Controllers;
 
+use App\Models\Group;
 use Framework\View\View;
 use Framework\Session\Session;
 use Framework\Routing\Redirect;
@@ -18,15 +19,23 @@ class PageController
 
     public function test()
     {
-        $usr = new User();
-        $users = $usr->where('id',1)->get();
-        //dd($users);
-        foreach($users as $u)
+//        $usr = new User();
+//        $users = $usr->where('id',1)->get();
+//        //dd($users);
+//        foreach($users as $u)
+//        {
+//            /** @var User $u */
+//            $parents[$u->id] = $u->parents('Group')->get();
+//        }
+//        dd($parents);
+
+        $grp = new Group();
+        $groups = $grp->where('id',1)->get();
+        foreach($groups as $g)
         {
-            /** @var User $u */
-            $parents[$u->id] = $u->Parent('Group')->get();
+            $children[$g->name] = $g->children('User')->get();
         }
-        dd($parents);
+        dd($children);
     }
 
     public function index()

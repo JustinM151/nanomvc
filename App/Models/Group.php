@@ -17,7 +17,7 @@ class Group extends Model
     public function __construct($fields='n/a')
     {
         parent::__construct($fields);
-        $this->owns('User','group_id');
+        $this->owns('User');
     }
 
 }
