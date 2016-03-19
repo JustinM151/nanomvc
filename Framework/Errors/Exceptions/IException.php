@@ -8,7 +8,7 @@
  * Nabbed this bit of code from php.net
  */
 
-namespace Framework\Errors\Exceptions;
+namespace NanoMVC\Framework\Errors\Exceptions;
 
 interface IException
 {

@@ -6,7 +6,7 @@
  * Time: 7:43 PM
  */
 
-namespace Framework\Routing;
+namespace NanoMVC\Framework\Routing;
 
 
 class Route

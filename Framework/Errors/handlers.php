@@ -6,7 +6,7 @@
  * Time: 9:17 AM
  */
 
-namespace Framework\Errors;
+namespace NanoMVC\Framework\Errors;
 
 /*
  * Framework Error Handler

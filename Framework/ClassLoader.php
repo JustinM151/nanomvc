@@ -6,6 +6,7 @@
  * Time: 10:07 AM
  */
 function class_autoloader($class) {
+    $class = str_ireplace("NanoMVC\\","",$class);
     $class = str_ireplace("\\","/",$class);
     include BASE_DIR .'/'. $class . '.php';
 }

@@ -8,7 +8,7 @@
 
 namespace App;
 
-use Framework\Routing\Router;
+use NanoMVC\Framework\Routing\Router;
 $router = new Router;
 
 $router->get('/','PageController@index');

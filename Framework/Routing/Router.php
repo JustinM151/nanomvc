@@ -6,12 +6,12 @@
  * Time: 9:12 PM
  */
 
-namespace Framework\Routing;
+namespace NanoMVC\Framework\Routing;
 
-use Framework\Errors\Errors;
-use Framework\Errors\Exceptions\MiddlewareException;
-use Framework\Errors\Exceptions\RouteException;
-use App\Middleware;
+use NanoMVC\Framework\Errors\Errors;
+use NanoMVC\Framework\Errors\Exceptions\MiddlewareException;
+use NanoMVC\Framework\Errors\Exceptions\RouteException;
+use NanoMVC\App\Middleware;
 class Router
 {
     /**
@@ -86,7 +86,7 @@ class Router
             }
         }
         //If we make it here there were no matching routes... toss out a 404 error
-        Errors::show(404);
+        die(Errors::show(404)->render());
     }
 
 
@@ -125,7 +125,7 @@ class Router
             case "controller":
                 //lets go down the controller path
                 $buffer = explode("@",$route->getHandler(),2); //separate our class from our method
-                $class = "App\\Controllers\\".$buffer[0]; //Set our controller class
+                $class = "NanoMVC\\App\\Controllers\\".$buffer[0]; //Set our controller class
                 //does the class exist?
                 if(class_exists($class))
                 {
@@ -143,7 +143,7 @@ class Router
                             if($output instanceof Redirect) {
                                 $output->go();
                                 exit;
-                            } elseif($output instanceof \Framework\View\ViewInterface) {
+                            } elseif($output instanceof \NanoMVC\Framework\View\ViewInterface) {
                                 die($output->render());
                             }
                             //echo $output;
@@ -155,7 +155,7 @@ class Router
                         //dd($controller);
                         //$controller->$buffer[0]();
                     } catch(RouteException $e) {
-                        Errors::exception($e);
+                        die(Errors::exception($e)->render());
                     }
                 } else {
                     throw new RouteException("Missing Controller Class", 101);

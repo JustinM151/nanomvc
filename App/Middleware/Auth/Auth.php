@@ -6,10 +6,10 @@
  * Time: 10:35 AM
  */
 
-namespace App\Middleware\Auth;
-use App\Middleware\Middleware;
-use Framework\Routing\Redirect;
-use Framework\Authenticate\Authenticate;
+namespace NanoMVC\App\Middleware\Auth;
+use NanoMVC\App\Middleware\Middleware;
+use NanoMVC\Framework\Routing\Redirect;
+use NanoMVC\Framework\Authenticate\Authenticate;
 
 class Auth implements Middleware
 {
