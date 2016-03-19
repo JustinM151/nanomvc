@@ -6,11 +6,11 @@
  * Time: 12:28 PM
  */
 
-namespace App\Controllers;
-use Framework\Requests\Request;
-use Framework\View;
-use Framework\Authenticate\Authenticate;
-use Framework\Routing\Redirect;
+namespace NanoMVC\App\Controllers;
+use NanoMVC\Framework\Requests\Request;
+use NanoMVC\Framework\View;
+use NanoMVC\Framework\Authenticate\Authenticate;
+use NanoMVC\Framework\Routing\Redirect;
 
 class AuthController
 {

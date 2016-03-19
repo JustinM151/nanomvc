@@ -6,7 +6,7 @@
  * Time: 10:43 PM
  */
 
-namespace Framework\Errors\Exceptions;
+namespace NanoMVC\Framework\Errors\Exceptions;
 
 
 class MiddlewareException extends ExceptionHandler

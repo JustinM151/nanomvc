@@ -6,9 +6,9 @@
  * Time: 8:36 PM
  */
 
-namespace Framework\Routing;
+namespace NanoMVC\Framework\Routing;
 
-use Framework\Session\Session;
+use NanoMVC\Framework\Session\Session;
 
 class Redirect
 {

@@ -6,8 +6,8 @@
  * Time: 10:59 AM
  */
 
-namespace Framework\Session;
-use Framework\Errors\Exceptions\SessionException;
+namespace NanoMVC\Framework\Session;
+use NanoMVC\Framework\Errors\Exceptions\SessionException;
 
 class Session
 {

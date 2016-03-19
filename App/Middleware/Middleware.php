@@ -6,7 +6,7 @@
  * Time: 11:49 AM
  */
 
-namespace App\Middleware;
+namespace NanoMVC\App\Middleware;
 
 
 interface Middleware

@@ -5,14 +5,14 @@
  * Date: 1/8/16
  * Time: 10:53 AM
  */
-namespace App\Controllers;
+namespace NanoMVC\App\Controllers;
 
-use App\Models\Group;
-use Framework\View\View;
-use Framework\Session\Session;
-use Framework\Routing\Redirect;
+use NanoMVC\App\Models\Group;
+use NanoMVC\Framework\View\View;
+use NanoMVC\Framework\Session\Session;
+use NanoMVC\Framework\Routing\Redirect;
 
-use App\Models\User;
+use NanoMVC\App\Models\User;
 
 class PageController
 {

@@ -6,8 +6,8 @@
  * Time: 2:53 PM
  */
 
-namespace App\Models;
-use Framework\Model\Model;
+namespace NanoMVC\App\Models;
+use NanoMVC\Framework\Model\Model;
 
 class User extends Model
 {

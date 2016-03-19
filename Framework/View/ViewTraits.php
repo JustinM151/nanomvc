@@ -6,9 +6,9 @@
  * Time: 7:41 PM
  */
 
-namespace Framework\View;
+namespace NanoMVC\Framework\View;
 
-use Framework\Session\Session;
+use NanoMVC\Framework\Session\Session;
 
 trait ViewTraits
 {

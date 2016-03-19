@@ -6,9 +6,9 @@
  * Time: 3:04 PM
  */
 
-namespace Framework\Model;
-use Framework\Database\DB;
-use Framework\Database\QueryBuilder;
+namespace NanoMVC\Framework\Model;
+use NanoMVC\Framework\Database\DB;
+use NanoMVC\Framework\Database\QueryBuilder;
 
 class Model extends QueryBuilder
 {

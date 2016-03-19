@@ -6,7 +6,7 @@
  * Time: 7:47 PM
  */
 
-namespace Framework\View;
+namespace NanoMVC\Framework\View;
 
 
 interface ViewInterface

@@ -6,7 +6,7 @@
  * Time: 9:03 PM
  */
 
-namespace Framework\Errors\Exceptions;
+namespace NanoMVC\Framework\Errors\Exceptions;
 
 
 

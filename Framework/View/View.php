@@ -6,9 +6,9 @@
  * Time: 8:09 PM
  */
 
-namespace Framework\View;
+namespace NanoMVC\Framework\View;
 
-use Framework\Errors\Exceptions\ViewException;
+use NanoMVC\Framework\Errors\Exceptions\ViewException;
 
 class View
 {
@@ -21,7 +21,7 @@ class View
     {
         try {
             if(VIEW_DRIVER) {
-                $class = '\\Framework\\View\\Drivers\\'.VIEW_DRIVER.'\\'.VIEW_DRIVER;
+                $class = 'NanoMVC\\Framework\\View\\Drivers\\'.VIEW_DRIVER.'\\'.VIEW_DRIVER;
                 if(class_exists($class)) {
                     $v = new $class;
                     return $v->make($view);

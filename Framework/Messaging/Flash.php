@@ -6,9 +6,9 @@
  * Time: 10:43 PM
  */
 
-namespace Framework\Messaging;
+namespace NanoMVC\Framework\Messaging;
 
-use Framework\Session\Session;
+use NanoMVC\Framework\Session\Session;
 
 class Flash
 {

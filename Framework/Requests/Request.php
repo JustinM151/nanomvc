@@ -6,7 +6,7 @@
  * Date: 1/14/16
  * Time: 1:56 PM
  */
-namespace Framework\Requests;
+namespace NanoMVC\Framework\Requests;
 
 class Request
 {

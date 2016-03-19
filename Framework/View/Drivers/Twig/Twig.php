@@ -5,11 +5,11 @@
  * Date: 1/8/16
  * Time: 10:58 AM
  */
-namespace Framework\View\Drivers\Twig;
+namespace NanoMVC\Framework\View\Drivers\Twig;
 
-use Framework\Session\Session;
-use Framework\View\ViewTraits;
-use Framework\View\ViewInterface;
+use NanoMVC\Framework\Session\Session;
+use NanoMVC\Framework\View\ViewTraits;
+use NanoMVC\Framework\View\ViewInterface;
 
 class Twig implements ViewInterface
 {

@@ -5,10 +5,10 @@
  * Date: 1/14/16
  * Time: 11:43 AM
  */
-namespace Framework\Authenticate;
+namespace NanoMVC\Framework\Authenticate;
 
-use Framework\Database\DB;
-use Framework\Session\Session;
+use NanoMVC\Framework\Database\DB;
+use NanoMVC\Framework\Session\Session;
 
 class Authenticate
 {

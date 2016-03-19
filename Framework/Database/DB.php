@@ -6,7 +6,7 @@
  * Time: 9:52 AM
  */
 
-namespace Framework\Database;
+namespace NanoMVC\Framework\Database;
 
 class DB extends \mysqli
 {

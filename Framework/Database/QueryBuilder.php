@@ -6,7 +6,7 @@
  * Time: 9:54 AM
  */
 
-namespace Framework\Database;
+namespace NanoMVC\Framework\Database;
 
 
 class QueryBuilder
