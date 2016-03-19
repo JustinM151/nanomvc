@@ -6,8 +6,6 @@
  * Time: 2:32 PM
  */
 
-namespace App;
-
 use NanoMVC\Framework\Routing\Router;
 $router = new Router;
 

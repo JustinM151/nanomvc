@@ -177,8 +177,6 @@ class Router
                 //We exit after calling the closure because we don't want to hit a 404 if the closure doesn't exit when its done.
                 break;
         }
-        
-        //dd($arr);
     }
 
 }

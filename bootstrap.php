@@ -41,6 +41,12 @@ require_once APP_DIR . '/settings.php';
  */
 require_once BASE_DIR . '/vendor/autoload.php';
 
+/*
+ * Nano Autoloader
+ */
 require_once FRAMEWORK . '/ClassLoader.php';
 
+/*
+ * Launch Router
+ */
 require_once APP_DIR . '/routes.php';

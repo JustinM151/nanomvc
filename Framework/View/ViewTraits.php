@@ -13,7 +13,7 @@ use NanoMVC\Framework\Session\Session;
 trait ViewTraits
 {
     protected $view;
-    protected $data=array("ASSET_PATH"=>ASSET_PATH); //always give view access to assets by default
+    protected $data=array("ASSET_PATH"=>ASSET_PATH); //always give view access to Assets by default
 
 
     /**
