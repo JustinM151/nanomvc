@@ -9,15 +9,15 @@
 namespace NanoMVC\App\Models;
 use NanoMVC\Framework\Model\Model;
 
-class Group extends Model
+class Test extends Model
 {
-    protected $table = "groups";
+    protected $table = "test";
     protected $fields = ['id','name'];
 
     public function __construct($fields='n/a')
     {
         parent::__construct($fields);
-        $this->owns('User');
+        //$this->owns('User');
     }
 
 }

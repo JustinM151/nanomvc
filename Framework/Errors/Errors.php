@@ -11,17 +11,16 @@ class Errors
 {
     public static function show($err)
     {
-        return View::make('Errors/'.$err);
+        return View::make('Errors/'.$err)->render();
     }
 
     public static function exception($e)
     {
         return View::make('Errors/exception')
-            ->with('type',$e->exceptionType)
             ->with('code',$e->getCode())
             ->with('message',$e->getMessage())
             ->with('line',$e->getLine())
             ->with('file',$e->getFile())
-            ->with('trace',$e->getTraceDump());
+            ->render();
     }
 }

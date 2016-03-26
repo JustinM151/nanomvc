@@ -17,7 +17,7 @@ class User extends Model
     public function __construct($fields='n/a')
     {
         parent::__construct($fields);
-        $this->belongsTo('Group');
+        //$this->belongsTo('Test');
     }
 
 }

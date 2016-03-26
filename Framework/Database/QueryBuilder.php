@@ -9,9 +9,13 @@
 namespace NanoMVC\Framework\Database;
 
 
+use NanoMVC\Framework\Errors\Errors;
+
 class QueryBuilder
 {
     protected $where = array();
+    protected $order = array();
+    protected $preparedWhere = array();
     protected $limit = 0;
     protected $start = 0;
 
@@ -105,10 +109,7 @@ class QueryBuilder
     }
 
 
-    /**
-     * get
-     */
-    public function get($as="obj")
+    public function count()
     {
         $limit = "";
         $where = "";
@@ -118,37 +119,170 @@ class QueryBuilder
             $where = " WHERE".$this->compileWhere();
         }
 
-        if($this->limit>0 || $this->start>0)
-        {
-            if($this->start > 0 && $this->limit==0)
-            {
-                $limit = "LIMIT ".$this->start.',18446744073709551615'; //Crazy large limit number to pull all rows from starting point per MySQL docs http://dev.mysql.com/doc/refman/5.7/en/select.html
-            } else
-            {
-                $limit = "LIMIT ".$this->start.','.$this->limit;
-            }
-
-        }
-
-        $sql = "SELECT * FROM ".$table.$where.$limit;
+        $sql = "SELECT COUNT(*) as num FROM ".$table.$where.$limit;
 
         $db = new DB;
-        $result = $db->query($sql);
-        if($result)
+        return $db->query($sql)->fetch_object()->num;
+    }
+
+
+    public function orderBy($column,$direction="DESC")
+    {
+        $this->order[$column] = (strtoupper($direction)=="DESC" ? "DESC":"ASC");
+        return $this;
+    }
+
+    public function compileOrder()
+    {
+        $orderStr = "";
+        foreach($this->order as $k=>$v)
         {
-            $objArr = array();
-            while($row = $result->fetch_assoc())
+            $orderStr .= '`'.$k.'` '.$v.',';
+        }
+        $orderStr = 'ORDER BY '.trim($orderStr,',');
+
+        return $orderStr;
+    }
+
+
+    /**
+     * Alias for get(), but only returns the first result.
+     * @return \NanoMVC\Framework\Model\Model OR null
+     */
+    public function first()
+    {
+        $object = $this->get('first');
+        if(isset($object)) {
+            return $object;
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * Alias for get(), but only returns the last result.
+     * @return \NanoMVC\Framework\Model\Model OR null
+     */
+    public function last()
+    {
+        $object = $this->get('last');
+        if(isset($object)) {
+            return $object;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Alias for get(), but only returns the first result.
+     * @return \NanoMVC\Framework\Model\Model OR null
+     */
+    public function single($rowNum)
+    {
+        $object = $this->get($rowNum);
+        if(isset($object)) {
+            return $object;
+        } else {
+            return null;
+        }
+    }
+
+
+
+    /**
+     * get
+     */
+    public function get($get="all")
+    {
+        try {
+            $limit = "";
+            $where = "";
+            $order = "";
+            $table = $this->table; //Exists in child class.
+            if($this->where) {
+                $where = " WHERE".$this->compileWhere();
+            }
+
+            if($this->order) {
+                $order = $this->compileOrder();
+            }
+
+            if($this->limit>0 || $this->start>0)
             {
-                $class = get_called_class();
-                $objArr[] = new $class($row);
+                if($this->start > 0 && $this->limit==0)
+                {
+                    $limit = "LIMIT ".$this->start.',18446744073709551615'; //Crazy large limit number to pull all rows from starting point per MySQL docs http://dev.mysql.com/doc/refman/5.7/en/select.html
+                } else
+                {
+                    $limit = "LIMIT ".$this->start.','.$this->limit;
+                }
 
             }
-            return $objArr;
-        } else {
-            //TODO: Add a custom exception here
-            return false;
-        }
 
+            $sql = "SELECT * FROM ".$table.$where.$order." ".$limit;
+
+            $db = new DB;
+
+            $result = null;
+            $statement = $db->prepare($sql,array(\PDO::ATTR_CURSOR, \PDO::CURSOR_SCROLL));
+
+
+
+            //dd($this->preparedWhere);
+            //dd($statement);
+            if($statement->execute($this->preparedWhere))
+            {
+                switch($get)
+                {
+                    case "all":
+                        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                        break;
+                    case "first":
+                        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                        $result = (!empty($result[0]) ? $result[0] : null);
+                        break;
+                    case "last":
+                        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                        $result = (!empty(end($result)) ? end($result) : null);
+                        break;
+                    case is_int($get):
+                        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                        $result = (!empty($result[$get]) ? $result[$get] : null);
+                        break;
+                }
+
+                $objArr = array();
+
+
+
+                    if(is_array($result)) {
+                        if($get!="all") {
+                            $class = get_called_class();
+                            $objArr = new $class($result);
+                        } else {
+                            foreach($result as $row)
+                            {
+                                $class = get_called_class();
+                                $objArr[] = new $class($row);
+                            }
+                        }
+                    }
+
+                $db = null; //release connection
+
+                dd($objArr);
+
+
+                return $objArr;
+
+            } else {
+                //TODO: Add a custom exception here
+                return false;
+            }
+        } catch (\Exception $e) {
+            die(Errors::exception($e));
+        }
     }
 
 
@@ -160,12 +294,11 @@ class QueryBuilder
         $wQry = "";
         if(!empty($this->where))
         {
-            $db = new DB;
             foreach($this->where as $condition)
             {
-                $wQry .= $condition['chain'].' '.'`'.$db->real_escape_string($condition['column']).'` '.$condition['operator'].' \''.$db->real_escape_string($condition['value']).'\''.' ';
+                $wQry .= $condition['chain'].' '.'`'.$condition['column'].'` '.$condition['operator'].' :'.$condition['column'].' ';
+                $this->preparedWhere[':'.$condition['column']] = $condition['value'];
             }
-            $db->close();
         }
         return $wQry;
     }

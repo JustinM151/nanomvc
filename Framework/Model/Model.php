@@ -7,6 +7,7 @@
  */
 
 namespace NanoMVC\Framework\Model;
+
 use NanoMVC\Framework\Database\DB;
 use NanoMVC\Framework\Database\QueryBuilder;
 

@@ -86,7 +86,7 @@ class Router
             }
         }
         //If we make it here there were no matching routes... toss out a 404 error
-        die(Errors::show(404)->render());
+        die(Errors::show(404));
     }
 
 
@@ -155,7 +155,7 @@ class Router
                         //dd($controller);
                         //$controller->$buffer[0]();
                     } catch(RouteException $e) {
-                        die(Errors::exception($e)->render());
+                        die(Errors::exception($e));
                     }
                 } else {
                     throw new RouteException("Missing Controller Class", 101);

@@ -8,7 +8,9 @@
 
 namespace NanoMVC\Framework\Database;
 
-class DB extends \mysqli
+use \PDO;
+
+class DB extends \PDO
 {
     /**
      * DB constructor
@@ -17,8 +19,27 @@ class DB extends \mysqli
      * @param string $user - DB Username
      * @param string $pass - Username's Password
      */
-    public function __construct($name=DB_NAME, $host=DB_HOST, $user=DB_USER, $pass=DB_PASS)
+    public function __construct($name=DB_NAME, $host=DB_HOST, $user=DB_USER, $pass=DB_PASS, $driver=DB_DRIVER)
     {
-        parent::__construct($host, $user, $pass, $name);
+        $dsn = "";
+        switch($driver)
+        {
+            case "mysql":
+                $dsn ="$driver:host=$host;dbname=$name";
+                break;
+            case "sqlite":
+                $dsn = "$driver:$name";
+                $user = null;
+                $pass = null;
+                break;
+        }
+
+        try {
+            parent::__construct($dsn, $user, $pass);
+            $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(\PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
     }
 }

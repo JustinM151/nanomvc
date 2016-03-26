@@ -7,7 +7,7 @@
  */
 namespace NanoMVC\App\Controllers;
 
-use NanoMVC\App\Models\Group;
+use NanoMVC\App\Models\Test;
 use NanoMVC\Framework\View\View;
 use NanoMVC\Framework\Session\Session;
 use NanoMVC\Framework\Routing\Redirect;
@@ -29,13 +29,10 @@ class PageController
 //        }
 //        dd($parents);
 
-        $grp = new Group();
-        $groups = $grp->where('id',1)->get();
-        foreach($groups as $g)
-        {
-            $children[$g->name] = $g->children('User')->get();
-        }
-        dd($children);
+        $test = new Test();
+        $res = $test->where('id','>', '0')->last();
+
+        dd($res);
     }
 
     public function index()
